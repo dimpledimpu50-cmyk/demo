@@ -1,5 +1,12 @@
 pipeline{
 agent any
+parameters{
+string(
+name: 'BRANCH_NAME',
+defaultValue: 'main',
+description: 'Git branch to build'
+)
+}
 stages{
 stage('Build'){
 steps{
@@ -10,11 +17,6 @@ stage('Test'){
 steps{
 sh 'mvn test'
 }
-}
-}
-post{
-success{
-archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
 }
 }
 }
